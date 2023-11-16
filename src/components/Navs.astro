@@ -1,0 +1,236 @@
+---
+import ToggleMenu from "./ToggleMenu.astro";
+import { Image } from "astro:assets";
+import myImage from "@assets/icon.webp";
+
+/** Main menu items */
+const textLinks: { label: string; href: string }[] = [
+  { label: "Blog", href: "/blog/" },
+  { label: "Services", href: "/services/" },
+  { label: "About", href: "/about/" },
+];
+
+const Service_link = [
+  {
+    name: "Presensi QR",
+    href: "/",
+
+    aria: "presensi-qr-code",
+    text: "Presensi QR",
+  },
+  {
+    name: "Compress Gambar",
+    href: "/services/compress-gambar", 
+    aria: "compress-gambar-link",
+    text: "Compress Gambar",
+  },
+  {
+    name: "Jadwal KRL Solo-Jogja",
+    href: "/services/krl-solo-jogja", 
+    aria: "jadwal-krl-solo-jogja-link",
+    text: "Jadwal KRL Solo-Jogja",
+  },
+  {
+    name: "Quiz Fikih",
+    href: "/services/quiz-fikih", 
+    aria: "quiz-fikih-link",
+    text: "Quiz Fikih",
+  },
+  {
+    name: "Smart Dictionary",
+    href: "/services/smart-dictionary", 
+    aria: "smart-dictionary-link",
+    text: "Smart Dictionary",
+  },
+  {
+    name: "Pemendek Link",
+    href: "/services/pemendek-link", 
+    aria: "pemendek-link-link",
+    text: "Pemendek Link",
+  },
+  {
+    name: "Banyak lagi",
+    href: "#footer", 
+    aria: "footer",
+    text: "Banyak lagi 😄",
+  },
+];
+---
+
+<header
+  class="fixed font-mono z-40 flex-none mx-auto w-[97%] backdrop-blur-10 rounded-md bg-white/30 dark:bg-[#050505]/20 md:backdrop-blur-sm"
+  id="header"
+  style="transition: transform 0.5s ease 0s; transform: translateY(0px);"
+>
+  <div class="mx-auto lg:flex lg:justify-between md:px-4">
+    <div class="flex top-0 gap-2 px-4 py-6 justify-between">
+      <a
+        href="/"
+        class="flex gap-2 items-center text-transparent bg-clip-text bg-gradient-to-br  bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)]  dark:text-white decoration-none leading-4 font-700 text-2xl md:text-3xl font-mono"
+      > <div class="i-tabler-sun h-12 w-12 text-green font-bold" />
+      Presensi QR
+      </a>
+      <div class="flex mr-4 items-right lg:hidden">
+        <ToggleMenu />
+      </div>
+    </div>
+
+    <nav
+      class="relative bottom-0 items-center contents w-full sm:w-auto hidden lg:flex justify-between"
+      aria-label="Main navigation"
+    >
+      <ul
+        class="flex relative before:content-empty before:absolute before:inset-[-1px] before:bg-green before:dark:bg-blue rounded-md before:rounded-md before:z-[-1] flex-col gap-5 lg:flex-row text-base leading-6 list-none p-4 bg-gray-100 dark:bg-gray-100 border-b border-gray-800 mr-auto"
+      >
+        {
+          textLinks.map(({ label, href }) => {
+            if (label !== "Services") {
+              return (
+                <li>
+                  <a
+                    aria-current={Astro.url.pathname === href}
+                    class="inline-block font-bold no-underline p-[0.5rem] px-[1rem] rounded-full transition-all ease-in-out duration-200 hover:text-zinc-700 hover:bg-[#ffff00] focus:text-zinc-900 focus:font-bold focus:bg-[#fff500]"
+                    data-href={href}
+                    href={href}
+                    style="--theme-transition: 0.2s ease-in-out;"
+                  >
+                    {label}
+                  </a>
+                </li>
+             
+              );
+            } else {
+              return (
+                <li
+                  class="dropdownMenu"
+                  id="detailsElement"
+                  aria-haspopup="true"
+                >
+                  <details>
+                    <summary
+                      data-summary={href}
+                      class="inline-block font-bold no-underline p-[0.5rem] px-[1rem] rounded-full transition-all ease-in-out duration-200 hover:text-zinc-700 hover:bg-[#ffff00] focus:text-zinc-900 focus:font-bold focus:bg-[#fff500]"
+                    >
+                      {label}
+                    </summary>
+                    <div class=":uno: mt-5 lg:absolute lg:-ml-4 lg:w-56 w-full rounded-md shadow-lg dark:bg-white bg-black/80 ring-1 ring-black ring-opacity-5">
+                      <div
+                        class="py-1"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="options-menu"
+                      >
+                        {Service_link.map((item) => (
+                          <a
+                            href={item.href}
+                            class="block px-4 py-2 text-md text-white decoration-none dark:text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900"
+                            role="menuitem"
+                            aria-labelledby={item.aria}
+                          >
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </details>
+                </li>
+              );
+            }
+          })
+        }
+      </ul>
+
+   
+    </nav>
+  </div>
+</header>
+<script>
+  function updateLinks() {
+    const links = document.querySelectorAll(
+      "a[data-href], summary[data-summary]"
+    );
+    const currentPath = window.location.pathname;
+
+    links.forEach((link) => {
+      let href =
+        link.getAttribute("data-href") || link.getAttribute("data-summary");
+      const isActive =
+        currentPath === href || (href !== "/" && currentPath.startsWith(href));
+
+      link.classList.toggle("text-green-900", !isActive);
+      link.classList.toggle("dark:text-[#914f8f]", !isActive);
+
+      link.classList.toggle("text-black", isActive);
+      link.classList.toggle("dark:text-black", isActive);
+      link.classList.toggle("bg-[#ffff00]", isActive);
+      link.classList.toggle("font-700", isActive);
+    });
+  }
+
+  updateLinks();
+  function initDetailsElement() {
+    const detailsElement = document.getElementById("detailsElement");
+    if (!detailsElement) return;
+
+    var closeDropdownTimeout; // Variabel untuk timeout penutupan dropdown
+
+    // Fungsi untuk menutup dropdown jika klik di luar elemen
+    function closeDetails(event) {
+      if (!detailsElement.contains(event.target)) {
+        detailsElement.querySelector("details").open = false;
+      }
+    }
+
+    // Event listener untuk click di mana saja di dokumen
+    document.addEventListener("click", closeDetails);
+
+    // Event listener untuk mouseover
+    detailsElement.addEventListener("mouseover", function () {
+      clearTimeout(closeDropdownTimeout); // Bersihkan timeout ketika mouseover
+      this.querySelector("details").open = true;
+    });
+
+    // Event listener untuk mouseleave
+    detailsElement.addEventListener("mouseleave", function () {
+      // Atur timeout sebelum menutup dropdown
+      closeDropdownTimeout = setTimeout(() => {
+        this.querySelector("details").open = false;
+      }, 300); // Delay 300 ms atau sesuai yang Anda butuhkan
+    });
+
+    // Pastikan dropdown tidak tertutup saat mouseover ke dropdown content
+    document
+      .querySelector(".dropdownMenu > details > div")
+      .addEventListener("mouseover", function () {
+        clearTimeout(closeDropdownTimeout); // Bersihkan timeout ketika mouseover ke konten dropdown
+      });
+
+    // Event listener khusus untuk touch pada mobile
+    detailsElement.addEventListener("touchend", function (event) {
+      let details = this.querySelector("details");
+      let isSummary = event.target.nodeName === "SUMMARY";
+
+      // Toggle hanya jika element summary yang disentuh
+      if (isSummary) {
+        event.preventDefault();
+        details.open = !details.open;
+      }
+
+      // Jika dropdown terbuka, tambahkan event listener untuk mouseover
+      if (details.open) {
+        document.addEventListener("mouseover", closeDetails);
+      } else {
+        document.removeEventListener("click", closeDetails);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initDetailsElement();
+  });
+
+  document.addEventListener("astro:after-swap", function () {
+    updateLinks();
+    initDetailsElement();
+  });
+</script>

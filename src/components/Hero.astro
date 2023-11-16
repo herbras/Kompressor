@@ -1,0 +1,63 @@
+---
+import Presen from "./Presensi.svelte";
+import Compressor from "./Compressor.svelte";
+---
+<section class=":uno: font-mono relative pt-24 lg:pt-12">
+    <div
+      class="mx-auto w-fit flex flex-col lg:flex-row gap-10 lg:gap-12"
+    >
+      <div class="absolute w-full lg:w-1/2 inset-y-0 lg:right-0">
+        <span
+          class="absolute -left-6 md:left-4 top-24 lg:top-28 w-24 h-24 rotate-90 skew-x-12 rounded-3xl bg-green-400 blur-xl opacity-60 lg:opacity-95 lg:block hidden"
+        ></span><span
+          class="absolute right-4 bottom-12 w-24 h-24 rounded-3xl bg-primary blur-xl opacity-80"
+        ></span>
+      </div><span
+        class="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr from-primary to-green-400 absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"
+      ></span><div
+        class="relative flex flex-col items-center text-center lg:text-left lg:py-7 xl:py-8
+      lg:items-start lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2"
+      >
+        <h1
+          class="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight xl:text-6xl/tight
+           font-bold text-heading-1"
+        >
+        Presensi <span
+            class="text-transparent bg-clip-text bg-gradient-to-br  bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)]"
+            > Cepat dan Mudah</span
+          >  dengan Satu Scan
+        </h1><p class="md:text-lg max-w-md text-heading-3 mt-3">
+        <span
+            class=":uno: text-transparent font-extrabold bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600"
+            >Murunah Kreatif Indonesia</span
+          > menghadirkan kelas Anda ke era digital dengan QR code!
+        </p><div class="mt-10 w-full flex max-w-md mx-auto lg:mx-0">
+          <div class="flex sm:flex-row flex-col gap-5 w-full">
+            <a href="/#cara-kerja"
+              class=":uno:  decoration-none px-6 py-3 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+              after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
+             text-lg md:text-2xl border-transparent relative  bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
+              >
+               Jelajahi Teknologi ini
+           </a
+            > <a href="/Kode-unik"
+            class=":uno: decoration-none px-6 py-3 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+            after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
+           text-lg md:text-2xl border-transparent relative  bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
+            >
+             Kode Rahasia
+         </a
+          >
+          </div>
+        </div>
+      </div><div
+        class=":uno:  flex flex-1 lg:w-1/2 mt-5 md:mt-none lg:h-auto relative lg:max-w-none lg:mx-0 mx-auto w-fit"
+      >
+      <div class=" lg:absolute w-full md:pt-25 lg:h-full rounded-3xl object-cover lg:max-h-none max-h-96">
+        <Compressor client:only /></div>
+
+      </div>
+     
+    </div>
+    
+  </section>

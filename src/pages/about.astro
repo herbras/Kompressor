@@ -1,0 +1,76 @@
+---
+import Layout from "../layouts/Layout.astro";
+const data = {
+  "Web Developer": {
+    name: "Ibrahim Nurul Huda",
+    image:
+      "https://pbs.twimg.com/profile_images/1704715589481332736/J6vLVH9s_400x400.jpg",
+  }
+};
+
+import { Image } from "astro:assets";
+---
+
+<Layout title="Compressor | Qlm.one" lang="id">
+ 
+
+
+  <section class="bg-white dark:bg-gray-800 py-8 px-4">
+    <div class="max-w-4xl mx-auto font-mono text-center">
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Tentang Saya</h1>
+          
+            <Image
+              src={data["Web Developer"].image}
+              alt={data["Web Developer"].name}
+              loading="lazy"
+              width="200"
+              height="200"
+              decoding="async"
+              class="h-auto aspect-square max-w-full rounded transition hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/25"
+            />
+          <div class="text-center">
+            <h2 class="text-lg font-700 text-gray-800 dark:text-amber">
+              {data["Web Developer"].name}
+            </h2>
+            <h3 class="text-md font-600 text-amber-100">Web Developer <span class="text-yellow">di MurunahID</span></h3>
+          </div>
+      
+      <p class="text-lg text-gray-700 dark:text-gray-300 mb-8">
+        Ibrahim Nurul Huda - Frontend Engineer yang Passionate, berbasis di Jakarta, ID. Berdedikasi penuh dalam mengembangkan solusi digital yang inovatif dan efektif.
+      </p>
+      <div class="text-left pb-6 md:pb-12">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-amber mb-4">Pengalaman Profesional</h2>
+        <p class="text-md mb-4">
+          Dengan latar belakang sebagai Freelance Developer di JASA DIGITAL, saya telah mengembangkan fitur blog menggunakan JAMSTACK dan aplikasi web fullstack, serta mengoptimalkan SEO yang meningkatkan visibilitas dan peringkat mesin pencari.
+        </p>
+        <p class="text-md mb-4">
+          Sebagai Frontend Engineer di SUNAT CERIA, saya mengembangkan fitur blog (Static Site Rendering) dengan Astro JS dan Tailwind, serta melakukan migrasi website dari WordPress ke situs statis, mengoptimalkan SEO, dan mengurangi biaya operasional.
+        </p>
+  
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-amber mb-4">Pendidikan</h2>
+        <p class="text-md mb-4">
+          Saya saat ini menempuh pendidikan di Imam Muhammad ibn Saud Islamic University, Jakarta, ID, jurusan Bachelor of Art (Sharia), dan diharapkan lulus pada Desember 2026. Saya juga memiliki Diploma II Bahasa Arab dari universitas yang sama dan telah menyelesaikan program beasiswa DevOps dan Back-End Developer di Dicoding.
+        </p>
+  
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-amber mb-4">Proyek-Proyek Penting</h2>
+        <ul class="list-disc list-inside mb-4">
+          <li>Mayar Tools - Mengembangkan layanan backend untuk konversi dokumen dan gambar.</li>
+          <li>Extract Colors API - API yang dibuat dengan FastAPI untuk mengekstrak warna dominan dari gambar.</li>
+          <li>Webp-Converter-API - API Konversi WebP yang dikembangkan dengan Deno.</li>
+          <li>Fikrah - Sistem Manajemen Kehadiran yang efisien dengan Harvesine Formula dan berbagai fitur canggih lainnya.</li>
+          <li>Qlink - Layanan Pemendek URL yang dibuat dengan Astro.js, Uno CSS, dan JavaScript.</li>
+          <!-- Tambahkan lebih banyak proyek sesuai kebutuhan -->
+        </ul>
+  
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-amber mb-4">Keahlian Teknis</h2>
+        <p class="text-md">
+          Saya memiliki keahlian dalam berbagai bahasa pemrograman dan teknologi, termasuk JavaScript, Python, HTML, CSS, Node.js, FastAPI, MySQL, serta pengalaman dalam DevOps, SEO, dan manajemen database. Selain itu, saya memiliki sertifikasi sebagai Junior Web Developer dan Graphic Designer dari LSP Teknologi Digital (BNSP).
+        </p>
+      </div>
+    </div>
+  </section>
+  
+
+
+
+</Layout >

@@ -1,0 +1,126 @@
+---
+interface Props {
+  title: string;
+  lang: string;
+}
+import { ViewTransitions } from "astro:transitions";
+import Footers from "@components/Footers.astro";
+
+import Navs from "../components/Navs.astro";
+const { title, lang } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="motion-safe:scroll-smooth 2xl:text-[20px]">
+  <head>
+    <ViewTransitions transition:animate="fade" />
+
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="m-0 p-0">
+    <Navs />
+    <main class="pt-24">
+      <slot />
+    </main>
+  <Footers />
+    <style is:global>
+      :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+          45deg,
+          rgb(var(--accent)),
+          rgb(var(--accent-light)) 30%,
+          white 60%
+        );
+      }
+      html {
+        font-family: system-ui, sans-serif;
+        background: #f4f6f9;
+        background-size: 224px;
+      }
+      code {
+        font-family:
+          Menlo,
+          Monaco,
+          Lucida Console,
+          Liberation Mono,
+          DejaVu Sans Mono,
+          Bitstream Vera Sans Mono,
+          Courier New,
+          monospace;
+      }
+	  /* Animasi fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Animasi fade-out */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Kelas animasi fade-in */
+.fade-in {
+  animation: fadeIn 0.5s forwards; /* Durasi animasi 0.5 detik */
+}
+
+/* Kelas animasi fade-out */
+.fade-out {
+  animation: fadeOut 0.5s forwards; /* Durasi animasi 0.5 detik */
+}
+
+    </style>
+ <script>
+  // Fungsi untuk mengatur perilaku WhatsApp button
+  const setupWhatsAppButtonBehavior = () => {
+    const whatsappButton = document.getElementById("whatsapp-buttons");
+    const toggleButton = document.getElementById("toggle-whatsapp");
+
+    const showWhatsAppButton = () => {
+      whatsappButton.classList.remove("fade-out");
+      whatsappButton.classList.add("fade-in");
+      whatsappButton.style.display = "block";
+      toggleButton.style.display = "none";
+    };
+
+    const hideWhatsAppButton = () => {
+      whatsappButton.classList.remove("fade-in");
+      whatsappButton.classList.add("fade-out");
+      setTimeout(() => {
+        whatsappButton.style.display = "none";
+        toggleButton.style.display = "block";
+      }, 500);
+    };
+
+    toggleButton.addEventListener("click", showWhatsAppButton);
+
+    document.addEventListener("click", (event) => {
+      const isClickInsideElement = whatsappButton.contains(event.target) || toggleButton.contains(event.target);
+      if (!isClickInsideElement) {
+        hideWhatsAppButton();
+      }
+    });
+
+    toggleButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+  };
+
+  // Jalankan pada navigasi awal
+  setupWhatsAppButtonBehavior();
+
+  // Jalankan pada transisi tampilan navigasi
+  document.addEventListener('astro:after-swap', setupWhatsAppButtonBehavior);
+</script>
+
+  </body>
+</html>

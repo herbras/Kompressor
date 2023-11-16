@@ -1,0 +1,41 @@
+---
+import Presen from "../components/Presensi.svelte";
+import Hero from "../components/Hero.astro";
+import Feature from "../components/Feature.astro";
+import Layout from "../layouts/Layout.astro";
+import Howworks from "@components/Howworks.astro";
+import Footers from "@components/Footers.astro";
+import Qna from "@components/Qna.astro"
+import Testimonials from "@components/Testimonials.astro"
+import Cta from "@components/Cta.astro"
+import CodeUnik from "@components/CodeUnik.astro";
+
+---
+<Layout title="Compressor | Qlm.one" lang="id">
+  <CodeUnik />
+<Testimonials />
+
+  <Feature />
+
+  <Howworks />
+<Qna />
+ <Cta />
+
+<Footers />
+</Layout>
+<button
+  id="toggle-whatsapp"
+  class="bg-white/80 p-5 rounded-md fixed bottom-8 z-50 left-5"
+  ><div class="i-tabler-barcode h-5 w-5"></div></button
+>
+
+<div
+  role="button"
+  aria-label="Chat WhatsApp"
+  id="whatsapp-buttons"
+  class="bg-white/80 p-5 rounded-md fixed bottom-8 z-50 left-5"
+  style="display: none;"
+>
+<Presen client:only />
+</div>
+</Layout>

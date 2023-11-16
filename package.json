@@ -1,0 +1,31 @@
+{
+  "name": "Kompressor",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.3.1",
+    "@astrojs/svelte": "^4.0.3",
+    "astro": "^3.5.3",
+    "browser-image-compression": "^2.0.2",
+    "comlink": "^4.4.1",
+    "idb-keyval": "^6.2.1",
+    "jszip": "^3.10.1",
+    "svelte": "4.0.0",
+    "typescript": "^5.2.2",
+    "vite-plugin-comlink": "^3.0.5"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.2.0",
+    "@iconify-json/fluent-emoji": "^1.1.15",
+    "@iconify-json/tabler": "^1.1.96",
+    "@unocss/preset-icons": "^0.57.3",
+    "unocss": "^0.57.3"
+  }
+}

@@ -1,0 +1,63 @@
+---
+import BaseLayout from "@layouts/Layout.astro";
+import { featuredArticleData } from "./generateBlog";
+export async function getStaticPaths() {
+  const blogEntries = featuredArticleData.featuredArticle;
+
+  return blogEntries.map(entry => ({
+    params: { tes: entry.slug }, props: { entry },
+  }));
+}
+const { entry } = Astro.props;
+
+---
+
+<BaseLayout
+  title="Article on Murunah"
+  description="Learn about  Murunah Kreatif Indonesia's most recent projects"
+>
+<main id="main" class="relative pt-15 z-10 flex flex-1 flex-col">
+  <div class="mx-auto w-full max-w-screen-lg md:-mb-45 overflow-hidden  shadow-lg rounded-lg">
+    <img
+      src={entry.imageUrl}
+      width="1500"
+      height="643"
+      loading="lazy"
+      decoding="async"
+      transition:name={entry.slug}
+      class="w-full object-cover object-center"
+    />
+  </div>
+  <div class="relative mx-auto md:z-10 max-w-screen-lg p-4 md:p-8 lg:p-12">
+    <div class="bg-white dark:bg-gray-800 py-5 sm:py-8 md:px-10 md:py-12 lg:p-12 lg:py-16 xl:p-16 xl:py-20 rounded-lg shadow-md">
+      <header class="mx-auto w-full max-w-prose text-center">
+        <time
+          class="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2"
+          datetime={entry.publishedDate instanceof Date ? entry.publishedDate.toISOString() : entry.publishedDate}>
+          {new Date(entry.publishedDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        </time>
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-4">
+          {entry.title}
+        </h1>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-gray-500 dark:text-gray-400">
+          <span>By</span>
+          <div class="flex items-center gap-2">
+            <img
+              class="inline-block rounded-full border border-gray-300 dark:border-gray-700 h-10 w-10"
+              src={entry.authorPhoto}
+              alt={entry.authorName}
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="text-lg">{entry.authorName}</span>
+          </div>
+        </div>
+      </header>
+      <hr class="my-8 border-gray-300 dark:border-gray-700" />
+      <article class="prose prose-lg mx-auto text-gray-700 dark:text-gray-300">
+        <p>{entry.summary}</p>
+      </article>
+    </div>
+  </div>
+</main>
+</BaseLayout>

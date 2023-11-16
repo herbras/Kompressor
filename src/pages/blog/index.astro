@@ -1,0 +1,192 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "@layouts/Layout.astro";
+import { featuredArticleData, latestArticlesData } from './generateBlog.ts';
+
+const featuredArticle = featuredArticleData.featuredArticle[0];
+const latestArticles = latestArticlesData ? latestArticlesData.latestArticles : [];
+
+---
+
+<BaseLayout
+  title="Article on Murunah"
+  description="Learn about  Murunah Kreatif Indonesia's most recent projects"
+>
+  <div class="px-5 py-5 md:px-12">
+    <div>
+      <h2 class="text-lg font-medium tracking-wide text-end">
+        Latest Posts
+      </h2><section
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-3 md:[&>*:first-child]:col-span-2"
+      >
+        <!-- Featured -->
+        <article
+          class="grid grid-rows-[300px_auto] md:grid-rows-[300px_220px] min-h-full group"
+        >
+          <a
+            class="relative decoration-none effect overflow-hidden"
+            href={featuredArticle.slug}
+          >
+            <Image
+              src={featuredArticle.imageUrl}
+              class="h-full min-w-full object-cover hover:scale-[101%] transition-all duration-200 rounded-[2px]"
+              alt={featuredArticle.title}
+              width="600"
+              height="200"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="z-30 absolute bottom-0 w-full h-20">
+              <div class="-z-10 absolute bottom-0 glass w-full min-h-full">
+              </div>
+              <div
+                class="flex items-center justify-between gap-x-1 text-white px-6 py-4"
+              >
+                <div class="flex flex-col gap-1 items-center justify-center">
+                  <time
+                    class="text-sm font-bold text-opacity-60"
+                    datetime={featuredArticle.publishedDate}
+                    >{
+                      new Date(
+                        featuredArticle.publishedDate
+                      ).toLocaleDateString()
+                    }</time
+                  >
+                  <span class="text-sm">{featuredArticle.readTime}</span>
+                </div>
+                <span class="pb-4">{featuredArticle.category}</span>
+              </div>
+            </div>
+          </a>
+          <div class="flex justify-between flex-col gap-4 md:gap-0 py-6 pl-1">
+            <div class="flex flex-col gap-3">
+              <div class="flex flex-col gap-2">
+                <a
+                  class="text-2xl decoration-none text-gray-700 dark:text-white font-semibold -tracking-wider"
+                  href={featuredArticle.slug}>{featuredArticle.title}</a
+                >
+              </div>
+              <p
+                class="overflow-hidden line-clamp-3 text-gray-700 dark:text-white mb-5 font-[400] md:pr-[15%]"
+              >
+                {featuredArticle.summary}
+              </p>
+            </div>
+            <footer class="flex justify-between items-center">
+              <a
+                href={featuredArticle.slug}
+                class="flex justify-center decoration-none items-center dark:text-white rounded-full hover:translate-x-1 transition-transform duration-150 ease-in-out font-semibold gap-1 group"
+                aria-label={`go to ${featuredArticle.title}`}
+              >
+                Read Post <span
+                  class="mt-[1px] group-hover:rotate-45 transition-transform duration-250 ease-in-out"
+                >
+                  <svg
+                    class="feather feather-arrow-up-right"
+                    fill="none"
+                    height="18"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line x1="7" x2="17" y1="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </footer>
+          </div>
+        </article>
+        {
+          latestArticles.slice(0, 4).map((article, index) => (
+            <article class="grid grid-rows-[300px_auto] md:grid-rows-[300px_220px] min-h-full group">
+              <a
+                class="relative decoration-none effect overflow-hidden"
+                href={`/blog/${article.slug}`}
+                
+              >
+                <Image
+                  src={article.imageUrl}
+                  class="h-full min-w-full object-cover hover:scale-[101%] transition-all duration-200 rounded-[2px]"
+                  alt={article.slug}
+                  width="600"
+                  height="200"
+                  loading="lazy"
+                  decoding="async"  transition:name={article.slug}
+                />
+                <div class="z-30 absolute bottom-0 w-full h-20">
+                  <div class="-z-10 absolute bottom-0 glass w-full min-h-full" />
+                  <div class="flex items-center justify-between gap-x-1 text-white px-6 py-4">
+                    <div class="flex flex-col gap-1 items-center justify-center">
+                      <time
+                        class="text-sm font-bold text-opacity-60"
+                        datetime={article.publishedDate}
+                      >
+                        {new Date(article.publishedDate).toLocaleDateString()}
+                      </time>
+                      <span class="text-sm">{article.readTime}</span>
+                    </div>
+                    <span class="pb-4">{article.category}</span>
+                  </div>
+                </div>
+              </a>
+              <div class="flex justify-between flex-col gap-4 md:gap-0 py-6 pl-1">
+                <div class="flex flex-col gap-3">
+                  <div class="flex flex-col gap-2">
+                    <a
+                      class="text-2xl decoration-none text-gray-700 dark:text-white font-semibold -tracking-wider"
+                      href={`/blog/${article.slug}`}
+                    >
+                      {article.title}
+                    </a>
+                  </div>
+                  <p class="overflow-hidden line-clamp-3 text-gray-700 dark:text-white mb-5 font-[400] md:pr-[15%]">
+                    {article.summary}
+                  </p>
+                </div>
+                <footer class="flex justify-between items-center">
+                  <a
+                    href={`/blog/${article.slug}`}
+                    
+                    class="flex justify-center decoration-none items-center dark:text-white rounded-full hover:translate-x-1 transition-transform duration-150 ease-in-out font-semibold gap-1 group"
+                    aria-label={`go to ${article.title}`}
+                  >
+                    Read Post{" "}
+                    <span class="mt-[1px] group-hover:rotate-45 transition-transform duration-250 ease-in-out">
+                      <svg
+                        class="feather feather-arrow-up-right"
+                        fill="none"
+                        height="18"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        viewBox="0 0 24 24"
+                        width="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <line x1="7" x2="17" y1="17" y2="7" />
+                        <polyline points="7 7 17 7 17 17" />
+                      </svg>
+                    </span>
+                  </a>
+                </footer>
+              </div>
+            </article>
+          ))
+        }
+      </section>
+     
+    </div>
+  </div> <div class="flex p-12 justify-center mt-4">
+    <a
+      href="/blog/2"
+      class="px-4 py-2 ml-2 decoration-none bg-blue-500 text-white rounded hover:bg-blue-700"
+      >Selanjutnya</a
+    >
+  </div>
+</BaseLayout>

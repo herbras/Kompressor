@@ -1,0 +1,65 @@
+---
+import Hero from "../components/Hero.astro";
+import Feature from "../components/Feature.astro";
+import Layout from "../layouts/Layout.astro";
+import CodeUnik from "@components/Code.svelte";
+import Howworks from "@components/Howworks.astro";
+import Qna from "@components/Qna.astro"
+import Testimonials from "@components/Testimonials.astro"
+import Cta from "@components/Cta.astro"
+
+const testi = [
+  {
+    id: 1,
+    name: "Ayu Lestari",
+    location: "Jakarta, Indonesia",
+    testimonial:
+      "Pengalaman saya menggunakan sistem presensi QR ini sangat mengesankan. Prosesnya cepat dan mudah, sangat efisien untuk kelas besar!",
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: "Rian Hidayat",
+    location: "Yogyakarta, Indonesia",
+    testimonial:
+      "Sebagai seorang dosen, sistem ini telah mengubah cara saya mengelola kehadiran siswa. Sangat inovatif!",
+    rating: 4,
+  },
+  {
+    id: 3,
+    name: "Dewi Sartika",
+    location: "Surabaya, Indonesia",
+    testimonial:
+      "Interface pengguna yang ramah dan proses presensi tanpa hambatan membuat sistem ini pilihan nomor satu saya.",
+    rating: 5,
+  },
+  {
+    id: 4,
+    name: "Agus Salim",
+    location: "Bandung, Indonesia",
+    testimonial:
+      "Saya terkesan dengan akurasi dan keamanan dari sistem presensi QR ini. Sangat direkomendasikan!",
+    rating: 4,
+  },
+];
+---
+
+<Layout title="Compressor | Qlm.one" lang="id">
+  <Hero />
+
+</Layout>
+<button
+  id="toggle-whatsapp"
+  class="bg-white/80 p-5 rounded-md fixed bottom-8 z-50 left-5"
+  ><div class="i-tabler-barcode h-5 w-5"></div></button
+>
+
+<div
+  role="button"
+  aria-label="Chat WhatsApp"
+  id="whatsapp-buttons"
+  class="bg-white/80 p-5 rounded-md fixed bottom-8 z-50 left-5"
+  style="display: none;"
+>
+  <CodeUnik client:only />
+</div>
