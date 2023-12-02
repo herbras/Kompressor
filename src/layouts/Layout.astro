@@ -24,9 +24,7 @@ const { title, lang } = Astro.props;
   </head>
   <body class="m-0 p-0">
     <Navs />
-    <main class="pt-24">
       <slot />
-    </main>
   <Footers />
     <style is:global>
       :root {
@@ -79,7 +77,7 @@ const { title, lang } = Astro.props;
 }
 
     </style>
- <script>
+<!--  <script>
   // Fungsi untuk mengatur perilaku WhatsApp button
   const setupWhatsAppButtonBehavior = () => {
     const whatsappButton = document.getElementById("whatsapp-buttons");
@@ -120,7 +118,7 @@ const { title, lang } = Astro.props;
 
   // Jalankan pada transisi tampilan navigasi
   document.addEventListener('astro:after-swap', setupWhatsAppButtonBehavior);
-</script>
+</script> -->
 
   </body>
 </html>

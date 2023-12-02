@@ -5,21 +5,27 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
     "@astrojs/svelte": "^4.0.3",
+    "@astrojs/vercel": "^5.2.0",
+    "@sveltejs/svelte-virtual-list": "^3.0.1",
     "astro": "^3.5.3",
     "browser-image-compression": "^2.0.2",
     "comlink": "^4.4.1",
     "idb-keyval": "^6.2.1",
     "jszip": "^3.10.1",
+    "rxjs": "7.5.6",
     "svelte": "4.0.0",
+    "tslib": "2.4.0",
     "typescript": "^5.2.2",
-    "vite-plugin-comlink": "^3.0.5"
+    "uuid": "^9.0.1",
+    "vite-plugin-comlink": "^3.0.5",
+    "zone.js": "^0.14.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.2.0",
