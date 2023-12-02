@@ -36,7 +36,10 @@
       let extension = splitName.at(-1); // Use .at(-1) to get the last item
       baseName += "-sarbeh";
       const previewUrl = URL.createObjectURL(newFile);
-
+  // Cek apakah format WebP dipilih
+  if (isWebp) {
+    extension = "webp"; // Ubah ekstensi ke .webp
+  }
       while (
         existingKeys.includes(
           `${baseName}${
