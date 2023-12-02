@@ -504,9 +504,9 @@
     {:else}
     <div class="  w-full rounded-md ">
         <h2>Hasilnya akan muncul disini</h2>
-        <div class="flex gap-5">
+        <div class="flex snap-x overflow-x-auto gap-5">
         {#each Array(4) as _, index (index)} <!-- Anggap ada maksimal 5 file -->
-        <div class="animate-pulse  h-45 w-45 bg-gray-300 rounded-md"></div>
+        <div class="animate-pulse scroll-ms-6 snap-start  h-45 w-45 bg-gray-300 rounded-md"></div>
    
         {/each}   </div>
     </div>
