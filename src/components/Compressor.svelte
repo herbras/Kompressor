@@ -495,11 +495,9 @@
               </div>
             {/if}
             <!-- Tombol Hapus -->
-            <button
-              class="absolute bottom-0 right-0 p-2 text-sm text-white bg-red-500 rounded-md hover:bg-red-700 dark:hover:bg-red-600 transition duration-300 ease-in-out"
-              on:click={() => removeFile(file.id)}>Hapus</button
-            >
-          {/if}
+            <div
+              class="i-tabler-sun absolute bottom-0 right-0 p-2 text-sm text-white bg-red-500 rounded-md hover:bg-red-700 dark:hover:bg-red-600 transition duration-300 ease-in-out"
+              on:click={() => removeFile(file.id)} />       {/if}
         </div>
       {/each}
     </div>
