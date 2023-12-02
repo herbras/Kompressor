@@ -1,52 +1,14 @@
 ---
 import Counter from "./Counter.svelte";
 import Presen from "./Presensi.svelte";
-import Compressor from "./Webp.svelte";
+import Compressor from "./Compressor.svelte";
 ---
 
-<div class="px-8 pt-30 mx-auto max-w-7xl">
   <Compressor client:only />
-  <div id="statistik" class="text-center my-4 bg-white p-4 rounded-lg shadow-md">
-    <h2 class="text-lg font-semibold">Statistik Aplikasi ini:</h2>
-    <p class="text-gray-700">Total File Terkonversi: <span id="totalFilesConverted"></span></p>
-    <p class="text-gray-700">
-        Total Ukuran Terkonversi: <span id="totalSizeConverted"></span>
-    </p>
-</div>
 
-</div>
-<script>document.addEventListener("DOMContentLoaded", function() {
-  var sseData = { fileCount: 0, totalSizeGB: 0 };
-  var eventSource;
 
-  function openSSE() {
-      eventSource = new EventSource("https://webp.qlm.one/sse");
-      eventSource.onmessage = function (event) {
-          sseData = JSON.parse(event.data);
-          updateDisplay();
-      };
-      eventSource.onerror = function () {
-          console.error("EventSource failed, reconnecting...");
-          eventSource.close();
-          setTimeout(openSSE, 1000);
-      };
-  }
 
-  function updateDisplay() {
-      var totalFilesConverted = sseData.totalFilesConverted;
-      var totalSizeConverted = sseData.totalSizeConverted;
-      var sizeUnit = Math.floor(Math.log(totalSizeConverted) / Math.log(1024));
-      var totalSizeFormatted = (totalSizeConverted / Math.pow(1024, sizeUnit)).toFixed(2);
-      var byteUnits = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-      var sizeLabel = byteUnits[sizeUnit];
 
-      document.getElementById("totalFilesConverted").textContent = totalFilesConverted;
-      document.getElementById("totalSizeConverted").textContent = `${totalSizeFormatted} ${sizeLabel}`;
-  }
-
-  openSSE();
-});
-</script>
 <style>
   #feature-five {
     overflow-y: auto; /* Mengaktifkan scrolling bila diperlukan */

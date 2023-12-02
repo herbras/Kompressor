@@ -65,7 +65,39 @@
         newFile,
         progressCallbackProxy,
       );
-      const base64 = await fileToBase64(compressedFileBlob);
+     
+      let finalImageBlob = compressedFileBlob;
+
+      if (isWebp) {
+        try {
+          const formData = new FormData();
+          formData.append("file", compressedFileBlob, fileName);
+
+          const response = await fetch("https://webp.qlm.one/convert", {
+            method: "POST",
+            headers: {
+              "X-Original-File-Size": compressedFileBlob.size.toString(),
+            },
+            body: formData,
+          });
+
+          if (response.ok) {
+            finalImageBlob = await response.blob();
+            if (!finalImageBlob.type.startsWith("image/")) {
+              throw new Error("File received is not an image");
+            }
+          } else {
+            throw new Error(
+              `Failed to convert image: ${response.status} ${response.statusText}`,
+            );
+          }
+        } catch (error) {
+          console.error("An error occurred during WebP conversion:", error);
+          // Jika konversi gagal, lanjutkan dengan gambar asli
+        }
+      }
+
+      const base64 = await fileToBase64(finalImageBlob);
 
       // Build new file object
       return {
@@ -137,7 +169,6 @@
 
     files.set(filesFromIDB);
   }
-  import { fade } from "svelte/transition";
 
   // Memanggil fungsi saat aplikasi dimuat
   onMount(() => {
@@ -218,40 +249,45 @@
 />
 
 <main
-  class=" p-5 rounded-3xl  bg-blue-200 relative"
+  class=" p-5 rounded-3xl bg-blue-200 relative"
   on:dragover={(e) => e.preventDefault()}
   on:drop={(e) => {
-    e.preventDefault();
     processFiles([...e.dataTransfer.files]);
   }}
 >
-
-
   <div
-   class="flex items-center  justify-center z-20 p-2 absolute top-8 right-6 bg-blue-500 rounded-full shadow-lg  transition">
+    class="flex items-center justify-center z-20 p-2 absolute top-8 right-6 bg-blue-500 rounded-full shadow-lg transition"
+  >
     <label
       for="formatToggle"
       class="relative h-8 w-14 cursor-pointer [-webkit-tap-highlight-color:_transparent] block"
     >
-      <input type="checkbox" id="formatToggle" class="sr-only" bind:checked={isWebp} />
+      <input
+        type="checkbox"
+        id="formatToggle"
+        class="sr-only"
+        bind:checked={isWebp}
+      />
       <span
         class="absolute inset-0 rounded-full transition duration-300"
-        class:bg-gray-300={!isWebp} class:bg-green-500={isWebp}
+        class:bg-gray-300={!isWebp}
+        class:bg-green-500={isWebp}
       ></span>
       <span
         class="absolute inset-y-0 m-1 h-6 w-6 rounded-full bg-white transition-all duration-300"
-        class:start-0={!isWebp} class:start-6={isWebp}
+        class:start-0={!isWebp}
+        class:start-6={isWebp}
       ></span>
     </label>
     <span class="ml-3 text-white font-medium text-lg">
-      {isWebp ? 'WEBP' : 'JPG'}
+      {isWebp ? "WEBP" : "JPG"}
     </span>
   </div>
   <form
-    class="p-6 h-75 flex flex-col justify-center items-center  space-y-4 rounded-xl bg-gray-100 rounded-lg shadow-md border-2 border-dashed border-gray-300 rounded p-4 text-center text-gray-500"
+    class="p-6 h-75 flex flex-col justify-center items-center space-y-4 rounded-xl bg-gray-100 rounded-lg shadow-md border-2 border-dashed border-gray-300 rounded p-4 text-center text-gray-500"
   >
     <label
-      class="flex flex-col  items-center justify-center p-4 rounded-md cursor-pointer"
+      class="flex flex-col items-center justify-center p-4 rounded-md cursor-pointer"
     >
       <div class="bg-white shadow-md p-2 rounded-xl">
         <div class="i-tabler-upload h-9 w-9" />
@@ -298,7 +334,7 @@
       <div class="flex flex-col md:flex-row gap-5 mx-auto w-fit">
         <button
           on:click={removeAllFiles}
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
     after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
    text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
         >
@@ -307,7 +343,7 @@
 
         <button
           on:click={downloadAll}
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
       after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
      text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
         >
@@ -317,7 +353,7 @@
       <!-- Existing Pagination Controls -->
       <div class="flex pt-5 mx-auto w-fit items-center space-x-2">
         <button
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
     after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
    text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
           class:disabled-button={currentPage === 1}
@@ -337,7 +373,7 @@
         <span>of {totalPages}</span>
 
         <button
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
     after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
    text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
           class:disabled-button={currentPage >= totalPages}
@@ -358,18 +394,18 @@
       <div class="flex flex-col md:flex-row gap-5 mx-auto w-fit">
         <button
           disabled
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
       after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
-     text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
-        >
+      text-base border-transparent relative bg-gray-500 min-w-max font-bold text-white"
+      >
           Hapus Semua File
         </button>
 
         <button
           disabled
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
         after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
-       text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
+        text-base border-transparent relative bg-gray-500 min-w-max font-bold text-white"
         >
           Download All
         </button>
@@ -377,9 +413,9 @@
       <!-- Existing Pagination Controls -->
       <div class="flex pt-5 mx-auto w-fit items-center space-x-2">
         <button
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
       after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
-     text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
+     text-base border-transparent relative bg-gray-500 min-w-max font-bold text-white"
           disabled
         >
           Prev
@@ -395,9 +431,9 @@
         <span>of {totalPages}</span>
 
         <button
-          class="px-8 py-4 bg-[#914f8f] rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
+          class="px-8 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
       after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
-     text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc6] dark:from-[#4CAF50] dark:to-[#087f23] hover:from-[rgba(109,212,126,0.8)] hover:to-[rgba(49,189,198,0.8)] focus:ring focus:ring-[#6dd47e] focus:ring-opacity-50 active:from-[rgba(49,189,198,0.8)] active:to-[rgba(109,212,126,0.8)] hover:after:opacity-100 hover:after:scale-[2.5] min-w-max font-bold text-white"
+     text-base border-transparent relative bg-gray-500 text-white"
           disabled
         >
           Next
@@ -406,7 +442,7 @@
     </div>
   {/if}
   {#if $files.length}
-    <div class="  mt-4 flex gap-5">
+    <div class=" mt-4 flex gap-5">
       {#each paginatedFiles as file (currentPage + file.id)}
         <div
           in:fly={{ x: 20, duration: 300 }}
@@ -464,9 +500,18 @@
         </div>
       {/each}
     </div>
-  {/if}
+    {:else}
+    <div class="  w-full rounded-md ">
+        <h2>Hasilnya akan muncul disini</h2>
+        <div class="flex gap-5">
+        {#each Array(4) as _, index (index)} <!-- Anggap ada maksimal 5 file -->
+        <div class="animate-pulse  h-45 w-45 bg-gray-300 rounded-md"></div>
+   
+        {/each}   </div>
+    </div>
+    {/if}
+    
 </div>
-
 
 <style>
   :root {

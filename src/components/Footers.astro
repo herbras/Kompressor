@@ -38,39 +38,29 @@ const Foto = "https://main--herbras.netlify.app/assets/icon.webp"
           </div>
         </div>
         <div class="relative flex items-center self-stretch p-4 -mx-4 transition-colors group hover:bg-gray-100 sm:self-auto sm:rounded-2xl lg:mx-0 lg:self-auto lg:p-6">
-          <div class="relative flex items-center justify-center flex-none w-24 h-24 bg-black rounded-xl">
-            <svg class="w-5 h-5" viewBox="0 0 232 232" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M166.524 51.4683L116.367 101.625L65.5235 51.4683L116.367 0.62434L166.524 51.4683ZM231.11 116.054L180.953 166.898L130.796 116.054L180.953 65.8969L231.11 116.054ZM101.939 116.054L51.0948 166.898L0.250934 116.054L51.0948 65.8969L101.939 116.054ZM166.524 181.326L116.367 231.483L65.5235 181.326L116.367 130.482L166.524 181.326Z" fill="#0c0c0c"></path>
-            </svg>        </div>
+          <div class="relative flex items-center justify-center flex-none bg-black rounded-xl" > <img src="https://pbs.twimg.com/profile_images/1728425060330049536/tUldr_J2_400x400.jpg"  class=" w-24 h-24"/> </div>
+        
           <div class="ml-8 lg:w-64">
-            <p class="text-base font-semibold text-black">
-              <a href="#_"><span class="absolute inset-0 sm:rounded-2xl"></span>Stay
-                updated</a>
+            <p class="text-base font-semibold  text-black">
+              <a href="/about" class=" decoration-dotted" target="_blank"><span class="absolute inset-0 sm:rounded-2xl"></span>Lets be friend</a>
             </p>
             <p class="mt-1 text-sm text-gray-500 hover:text-blue-600">
-              Follow us for social media for news and updates
+              Yuk berteman di sosial media, kita bisa saling berbagi cerita dan update.
             </p>
           </div>
         </div>
       </div>
-      <div class="flex flex-col items-center pt-8 pb-12 border-t border-gray-200 md:flex-row-reverse md:justify-between md:pt-6">
-        <div class="max-w-xl"><form class="flex flex-col items-center justify-center max-w-sm mx-auto" action="">
-    <div class="flex flex-col w-full gap-1 mt-3 sm:flex-row">
-      <input name="email" type="email" class="block w-full px-4 py-2 text-sm font-medium text-gray-800 placeholder-gray-400 bg-white border border-gray-300 rounded-full font-spline focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50 disabled:opacity-50" placeholder="Enter your email..." required=""><button type="button" class="items-center inline-flex  justify-center w-full px-6 py-2.5 text-center text-white duration-200 bg-black border-2 border-black rounded-full nline-flex hover:bg-transparent hover:border-black hover:text-black focus:outline-none lg:w-auto focus-visible:outline-black text-sm focus-visible:ring-black">
-        <div style="position: relative"></div>
-        Subscribe<!-- -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="w-4 h-auto ml-2">
-          <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path>
-        </svg>
-      </button>
-    </div>
-  </form>
-  </div>
+   
         <p class="mt-6 text-sm text-gray-500 md:mt-0">
-          © Copyright
-          <!-- -->2022
-          <!-- -->. All rights reserved.
+          © Karya
+          <!-- --><span id="year" class="text-black font-500">2022</span> 
+          <!-- -->. Thanks Open Source.
         </p>
       </div>
     </div>
   </footer>
+  <script>
+    const currentYear = new Date().getFullYear();
+    document.getElementById("year").textContent = currentYear;
+
+  </script>

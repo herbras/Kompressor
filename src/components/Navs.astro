@@ -82,68 +82,49 @@ const Service_link = [
       <ul
         class="flex relative before:content-empty before:absolute before:inset-[-1px] before:bg-green before:dark:bg-blue rounded-md before:rounded-md before:z-[-1] flex-col gap-5 lg:flex-row text-base leading-6 list-none p-4 bg-gray-100 dark:bg-gray-100 border-b border-gray-800 mr-auto"
       >
-        {
-          textLinks.map(({ label, href }) => {
-            if (label !== "Services") {
-              return (
-                <li>
-                  <a
-                    aria-current={Astro.url.pathname === href}
-                    class="inline-block font-bold no-underline p-[0.5rem] px-[1rem] rounded-full transition-all ease-in-out duration-200 hover:text-zinc-700 hover:bg-[#ffff00] focus:text-zinc-900 focus:font-bold focus:bg-[#fff500]"
-                    data-href={href}
-                    href={href}
-                    style="--theme-transition: 0.2s ease-in-out;"
-                  >
-                    {label}
-                  </a>
-                </li>
-             
-              );
-            } else {
-              return (
-                <li
-                  class="dropdownMenu"
-                  id="detailsElement"
-                  aria-haspopup="true"
-                >
-                  <details>
-                    <summary
-                      data-summary={href}
-                      class="inline-block font-bold no-underline p-[0.5rem] px-[1rem] rounded-full transition-all ease-in-out duration-200 hover:text-zinc-700 hover:bg-[#ffff00] focus:text-zinc-900 focus:font-bold focus:bg-[#fff500]"
-                    >
-                      {label}
-                    </summary>
-                    <div class=":uno: mt-5 lg:absolute lg:-ml-4 lg:w-56 w-full rounded-md shadow-lg dark:bg-white bg-black/80 ring-1 ring-black ring-opacity-5">
-                      <div
-                        class="py-1"
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="options-menu"
-                      >
-                        {Service_link.map((item) => (
-                          <a
-                            href={item.href}
-                            class="block px-4 py-2 text-md text-white decoration-none dark:text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900"
-                            role="menuitem"
-                            aria-labelledby={item.aria}
-                          >
-                            {item.name}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </details>
-                </li>
-              );
-            }
-          })
-        }
+      <li class="text-gray-700">Converted to Webp: <span id="totalFilesConverted"></span></li>
+      <li class="text-gray-700">
+          Total: <span id="totalSizeConverted"></span>
+      </li>
       </ul>
 
    
     </nav>
   </div>
 </header>
+
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var sseData = { fileCount: 0, totalSizeGB: 0 };
+  var eventSource;
+
+  function openSSE() {
+      eventSource = new EventSource("https://webp.qlm.one/sse");
+      eventSource.onmessage = function (event) {
+          sseData = JSON.parse(event.data);
+          updateDisplay();
+      };
+      eventSource.onerror = function () {
+          console.error("EventSource failed, reconnecting...");
+          eventSource.close();
+          setTimeout(openSSE, 1000);
+      };
+  }
+
+  function updateDisplay() {
+      var totalFilesConverted = sseData.totalFilesConverted;
+      var totalSizeConverted = sseData.totalSizeConverted;
+      var sizeUnit = Math.floor(Math.log(totalSizeConverted) / Math.log(1024));
+      var totalSizeFormatted = (totalSizeConverted / Math.pow(1024, sizeUnit)).toFixed(2);
+      var byteUnits = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+      var sizeLabel = byteUnits[sizeUnit];
+
+      document.getElementById("totalFilesConverted").textContent = totalFilesConverted;
+      document.getElementById("totalSizeConverted").textContent = `${totalSizeFormatted} ${sizeLabel}`;
+  }
+
+  openSSE();
+});
+</script>
 <script>
   function updateLinks() {
     const links = document.querySelectorAll(
