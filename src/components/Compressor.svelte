@@ -445,11 +445,11 @@
     </div>
   {/if}
   {#if $files.length}
-    <div class=" mt-4 flex gap-5">
+    <div class="snap-x overflow-x-auto mt-4 flex gap-5">
       {#each paginatedFiles as file (currentPage + file.id)}
         <div
           in:fly={{ x: 20, duration: 300 }}
-          class="rounded-lg shadow-lg mt-5 md:mt-12 bg-white dark:bg-gray-900 relative transition duration-200 ease-in-out transform hover:scale-105"
+          class="scroll-ms-6 snap-start rounded-lg shadow-lg mt-5 md:mt-12 bg-white dark:bg-gray-900 relative transition duration-200 ease-in-out transform hover:scale-105"
         >
           {#if file.after}
             <div
