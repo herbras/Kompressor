@@ -331,7 +331,7 @@
     <div class="text-center text-sm mt-1">{$userMessage}</div>
   {/if}
 </div>
-<div class="flex gap-5">
+<div class="flex flex-col md:flex-row gap-5">
   {#if $files.length > 0}
     <div class="flex flex-col">
       <div class="flex flex-col md:flex-row gap-5 mx-auto w-fit">
