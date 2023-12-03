@@ -3,7 +3,6 @@ interface Props {
   title: string;
   lang: string;
 }
-import { ViewTransitions } from "astro:transitions";
 import Footers from "@components/Footers.astro";
 
 import Navs from "../components/Navs.astro";
@@ -13,7 +12,6 @@ const { title, lang } = Astro.props;
 <!doctype html>
 <html lang={lang} class="motion-safe:scroll-smooth 2xl:text-[20px]">
   <head>
-    <ViewTransitions transition:animate="fade" />
 
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
