@@ -3,17 +3,13 @@ import Counter from "./Counter.svelte";
 import Presen from "./Presensi.svelte";
 import Compressor from "./Compressor.svelte";
 import Card from "./Card.svelte";
-import Counter from "./Counter.svelte";
-
 ---
 
-  <Compressor client:only />
-  <div class="flex flex-col md:flex-row gap-5">
-    <Counter client:visible />
+<Compressor client:only="svelte" />
+<div class="flex flex-col md:flex-row gap-5">
+  <Counter client:visible />
   <Card client:visible />
-
 </div>
-
 
 <style>
   #feature-five {

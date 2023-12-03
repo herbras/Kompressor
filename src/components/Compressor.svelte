@@ -1,15 +1,14 @@
 <script>
-    import { files, paginatedFiles, removeFile, currentPage } from './store.js';
+  import { files, paginatedFiles, removeFile, currentPage } from "./store.js";
 
   import { wrap, proxy } from "comlink";
   import { writable } from "svelte/store";
   import Worker from "./worker/worker?worker";
-  import { set, get, del, keys, clear } from "idb-keyval";
-  import JSZip from "jszip";
+  import { set, get, keys } from "idb-keyval";
+
   import { v4 as uuidv4 } from "uuid";
   let fileProgress = writable(0);
   import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
 
   let loading = writable(false);
   const worker = wrap(new Worker());
@@ -133,28 +132,6 @@
   $: if ($loading) {
     userMessage.set("");
   }
-  async function downloadAll() {
-    const zip = new JSZip();
-    let $filesValue;
-
-    files.subscribe((value) => {
-      $filesValue = value;
-    })();
-
-    $filesValue.forEach((file) => {
-      zip.file(file.newFileName, file.after.split("base64,")[1], {
-        base64: true,
-      });
-    });
-
-    const content = await zip.generateAsync({ type: "blob" });
-
-    const url = URL.createObjectURL(content);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "minimizeSarbeh.zip";
-    a.click();
-  }
 
   async function loadFilesFromIDB() {
     const keysFromIDB = await keys();
@@ -178,15 +155,6 @@
   onMount(() => {
     loadFilesFromIDB();
   });
-  // Fungsi untuk menghapus file berdasarkan fileId
-
-  async function removeAllFiles() {
-    // Menghapus semua file dari IndexedDB
-    await clear();
-
-    // Mengosongkan state files
-    files.set([]);
-  }
 
   let isWebp = false;
 
@@ -195,32 +163,6 @@
     if (event.key === "files") {
       const newFiles = loadFilesFromLocalStorage();
       files.set(newFiles);
-    }
-  }
-  export let inputPage = ""; // Holds the user input for page number
-  export let isInputInvalid = false; // To show/hide the error message
-  const itemsPerPage = 4;
-  // Assuming $files is a Svelte store or reactive variable
-  $: totalPages = Math.ceil($files.length / itemsPerPage);
-
-
-  function changePage(newPage) {
-    const page = parseInt(newPage);
-    if (!isNaN(page) && page >= 1 && page <= totalPages) {
-      currentPage = page;
-      inputPage = ""; // Clear the input field
-      isInputInvalid = false;
-    } else {
-      isInputInvalid = true;
-    }
-  }
-
-  function handlePageInput(event) {
-    if (!/^\d*$/.test(inputPage)) {
-      inputPage = "";
-    }
-    if (event.key === "Enter") {
-      changePage(inputPage);
     }
   }
 </script>
@@ -238,8 +180,21 @@
   }}
 >
   <div
-    class="flex items-center justify-center z-20 p-2 absolute top-8 right-6 bg-blue-500 rounded-full shadow-lg transition"
+    class="flex items-center justify-center z-20 p-2 absolute top-8 right-6 bg-blue-600 rounded-full shadow-lg transition"
   >
+    <label for="formatToggle" class="sr-only"
+      >Change format to {isWebp ? "WEBP" : "JPG"}</label
+    >
+    <input
+      type="checkbox"
+      id="formatToggle"
+      class="sr-only"
+      bind:checked={isWebp}
+    />
+    <span class="mr-3 text-gray-100 font-medium text-lg">
+      {isWebp ? "WEBP" : "JPG"}
+    </span>
+
     <label
       for="formatToggle"
       class="relative h-8 w-14 cursor-pointer [-webkit-tap-highlight-color:_transparent] block"
@@ -256,14 +211,13 @@
         class:bg-green-500={isWebp}
       ></span>
       <span
-        class="absolute inset-y-0 m-1 h-6 w-6 rounded-full bg-white transition-all duration-300"
+        class="absolute inset-y-0 m-1 h-6 w-6 rounded-full transition-all duration-300"
         class:start-0={!isWebp}
+        class:bg-gray-600={!isWebp}
         class:start-6={isWebp}
+        class:bg-white={isWebp}
       ></span>
     </label>
-    <span class="ml-3 text-white font-medium text-lg">
-      {isWebp ? "WEBP" : "JPG"}
-    </span>
   </div>
   <form
     class="p-6 h-75 flex flex-col justify-center items-center space-y-4 rounded-xl bg-gray-100 rounded-lg shadow-md border-2 border-dashed border-gray-300 rounded p-4 text-center text-gray-500"
@@ -311,7 +265,6 @@
   {/if}
 </div>
 
-
 <style>
   :root {
     --primary-color: #4a90e2; /* Adjust primary color */
@@ -326,18 +279,6 @@
   }
   .start-6 {
     left: 1.5rem; /* 6 tailwind units */
-  }
-  input[type="text"] {
-    border: 1px solid #ddd;
-    padding: 0.4rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-    transition: border-color 0.3s;
-    font-family: var(--font-family);
-  }
-
-  input[type="text"]:focus {
-    border-color: var(--primary-color);
   }
 
   /* Styles for the indeterminate progress bar */
