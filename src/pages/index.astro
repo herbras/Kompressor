@@ -9,5 +9,14 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Compressor | Qlm.one" lang="id">
   
   <Hero />
+  <ul
+  class="md:hidden flex hidden relative before:content-empty before:absolute before:inset-[-1px] before:bg-green before:dark:bg-blue rounded-md before:rounded-md before:z-[-1] flex-col gap-5 lg:flex-row text-base leading-6 list-none p-4 bg-gray-100 dark:bg-gray-100 border-b border-gray-800 mr-auto"
+>
+<li class="text-gray-700">Converted to Webp: <span class="totalFilesConverted"></span></li>
+<li class="text-gray-700">
+    Total: <span class="totalSizeConverted"></span>
+</li>
+</ul>
+
 </Layout>
 

@@ -20,37 +20,37 @@ const Service_link = [
   },
   {
     name: "Compress Gambar",
-    href: "/services/compress-gambar", 
+    href: "/services/compress-gambar",
     aria: "compress-gambar-link",
     text: "Compress Gambar",
   },
   {
     name: "Jadwal KRL Solo-Jogja",
-    href: "/services/krl-solo-jogja", 
+    href: "/services/krl-solo-jogja",
     aria: "jadwal-krl-solo-jogja-link",
     text: "Jadwal KRL Solo-Jogja",
   },
   {
     name: "Quiz Fikih",
-    href: "/services/quiz-fikih", 
+    href: "/services/quiz-fikih",
     aria: "quiz-fikih-link",
     text: "Quiz Fikih",
   },
   {
     name: "Smart Dictionary",
-    href: "/services/smart-dictionary", 
+    href: "/services/smart-dictionary",
     aria: "smart-dictionary-link",
     text: "Smart Dictionary",
   },
   {
     name: "Pemendek Link",
-    href: "/services/pemendek-link", 
+    href: "/services/pemendek-link",
     aria: "pemendek-link-link",
     text: "Pemendek Link",
   },
   {
     name: "Banyak lagi",
-    href: "#footer", 
+    href: "#footer",
     aria: "footer",
     text: "Banyak lagi 😄",
   },
@@ -58,7 +58,7 @@ const Service_link = [
 ---
 
 <header
-  class="fixed font-mono z-40 flex-none mx-auto w-[97%] backdrop-blur-10 rounded-md bg-white/30 dark:bg-[#050505]/20 md:backdrop-blur-sm"
+  class="font-mono z-40 flex-none mx-auto w-[97%] backdrop-blur-10 rounded-md bg-white/30 dark:bg-[#050505]/20 md:backdrop-blur-sm"
   id="header"
   style="transition: transform 0.5s ease 0s; transform: translateY(0px);"
 >
@@ -67,9 +67,13 @@ const Service_link = [
       <a
         href="/"
         class="flex gap-2 items-center text-transparent bg-clip-text bg-gradient-to-br bg-gradient-to-r from-[#4FD1C5] to-[#38B2AC] dark:from-[#63b3ed] dark:to-[#4299e1] hover:from-[rgba(79,209,197,0.8)] hover:to-[rgba(56,178,172,0.8)] focus:ring focus:ring-[#4FD1C5] focus:ring-opacity-50 active:from-[rgba(56,178,172,0.8)] active:to-[rgba(79,209,197,0.8)] dark:text-white decoration-none leading-4 font-700 text-2xl md:text-3xl font-mono"
-        > <div class="i-fluent-emoji-framed-picture h-12 w-12 text-green font-bold" />
-      UltraImage Optimizer
-    </a>
+      >
+        <div
+          class="i-fluent-emoji-framed-picture h-12 w-12 text-green font-bold"
+        >
+        </div>
+         UltraImage
+      </a>
       <div class="flex mr-4 items-right lg:hidden">
         <ToggleMenu />
       </div>
@@ -80,138 +84,60 @@ const Service_link = [
       aria-label="Main navigation"
     >
       <ul
-        class="flex relative before:content-empty before:absolute before:inset-[-1px] before:bg-green before:dark:bg-blue rounded-md before:rounded-md before:z-[-1] flex-col gap-5 lg:flex-row text-base leading-6 list-none p-4 bg-gray-100 dark:bg-gray-100 border-b border-gray-800 mr-auto"
+        class="flex hidden relative before:content-empty before:absolute before:inset-[-1px] before:bg-green before:dark:bg-blue rounded-md before:rounded-md before:z-[-1] flex-col gap-5 lg:flex-row text-base leading-6 list-none p-4 bg-gray-100 dark:bg-gray-100 border-b border-gray-800 mr-auto"
       >
-      <li class="text-gray-700">Converted to Webp: <span id="totalFilesConverted"></span></li>
-      <li class="text-gray-700">
-          Total: <span id="totalSizeConverted"></span>
-      </li>
+        <li class="text-gray-700">
+          Converted to Webp: <span class="totalFilesConverted"></span>
+        </li>
+        <li class="text-gray-700">
+          Total: <span class="totalSizeConverted"></span>
+        </li>
       </ul>
-
-   
     </nav>
   </div>
 </header>
 
-<script>document.addEventListener("DOMContentLoaded", function() {
-  var sseData = { fileCount: 0, totalSizeGB: 0 };
-  var eventSource;
-
-  function openSSE() {
-      eventSource = new EventSource("https://webp.qlm.one/sse");
-      eventSource.onmessage = function (event) {
-          sseData = JSON.parse(event.data);
-          updateDisplay();
-      };
-      eventSource.onerror = function () {
-          console.error("EventSource failed, reconnecting...");
-          eventSource.close();
-          setTimeout(openSSE, 1000);
-      };
-  }
-
-  function updateDisplay() {
-      var totalFilesConverted = sseData.totalFilesConverted;
-      var totalSizeConverted = sseData.totalSizeConverted;
-      var sizeUnit = Math.floor(Math.log(totalSizeConverted) / Math.log(1024));
-      var totalSizeFormatted = (totalSizeConverted / Math.pow(1024, sizeUnit)).toFixed(2);
-      var byteUnits = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-      var sizeLabel = byteUnits[sizeUnit];
-
-      document.getElementById("totalFilesConverted").textContent = totalFilesConverted;
-      document.getElementById("totalSizeConverted").textContent = `${totalSizeFormatted} ${sizeLabel}`;
-  }
-
-  openSSE();
-});
-</script>
 <script>
-  function updateLinks() {
-    const links = document.querySelectorAll(
-      "a[data-href], summary[data-summary]"
-    );
-    const currentPath = window.location.pathname;
-
-    links.forEach((link) => {
-      let href =
-        link.getAttribute("data-href") || link.getAttribute("data-summary");
-      const isActive =
-        currentPath === href || (href !== "/" && currentPath.startsWith(href));
-
-      link.classList.toggle("text-green-900", !isActive);
-      link.classList.toggle("dark:text-[#914f8f]", !isActive);
-
-      link.classList.toggle("text-black", isActive);
-      link.classList.toggle("dark:text-black", isActive);
-      link.classList.toggle("bg-[#ffff00]", isActive);
-      link.classList.toggle("font-700", isActive);
-    });
-  }
-
-  updateLinks();
-  function initDetailsElement() {
-    const detailsElement = document.getElementById("detailsElement");
-    if (!detailsElement) return;
-
-    var closeDropdownTimeout; // Variabel untuk timeout penutupan dropdown
-
-    // Fungsi untuk menutup dropdown jika klik di luar elemen
-    function closeDetails(event) {
-      if (!detailsElement.contains(event.target)) {
-        detailsElement.querySelector("details").open = false;
-      }
+document.addEventListener("DOMContentLoaded", function() {
+    interface SSEData {
+        totalFilesConverted?: number;
+        totalSizeConverted?: number;
     }
 
-    // Event listener untuk click di mana saja di dokumen
-    document.addEventListener("click", closeDetails);
+    let sseData: SSEData = {};
+    let eventSource: EventSource | null = null;
 
-    // Event listener untuk mouseover
-    detailsElement.addEventListener("mouseover", function () {
-      clearTimeout(closeDropdownTimeout); // Bersihkan timeout ketika mouseover
-      this.querySelector("details").open = true;
-    });
+    function openSSE() {
+        eventSource = new EventSource("https://webp.qlm.one/sse");
+        eventSource.onmessage = function (event: MessageEvent) {
+            sseData = JSON.parse(event.data);
+            updateDisplay();
+        };
+        eventSource.onerror = function () {
+            console.error("EventSource failed, reconnecting...");
+            eventSource?.close();
+            setTimeout(openSSE, 1000);
+        };
+    }
 
-    // Event listener untuk mouseleave
-    detailsElement.addEventListener("mouseleave", function () {
-      // Atur timeout sebelum menutup dropdown
-      closeDropdownTimeout = setTimeout(() => {
-        this.querySelector("details").open = false;
-      }, 300); // Delay 300 ms atau sesuai yang Anda butuhkan
-    });
+    function updateDisplay() {
+        const totalFilesConverted = sseData.totalFilesConverted || 0;
+        const totalSizeConverted = sseData.totalSizeConverted || 0;
+        const sizeUnit = Math.floor(Math.log(totalSizeConverted) / Math.log(1024));
+        const totalSizeFormatted = (totalSizeConverted / Math.pow(1024, sizeUnit)).toFixed(2);
+        const byteUnits = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+        const sizeLabel = byteUnits[sizeUnit];
 
-    // Pastikan dropdown tidak tertutup saat mouseover ke dropdown content
-    document
-      .querySelector(".dropdownMenu > details > div")
-      .addEventListener("mouseover", function () {
-        clearTimeout(closeDropdownTimeout); // Bersihkan timeout ketika mouseover ke konten dropdown
-      });
+        const fileElements = document.getElementsByClassName("totalFilesConverted");
+        const sizeElements = document.getElementsByClassName("totalSizeConverted");
 
-    // Event listener khusus untuk touch pada mobile
-    detailsElement.addEventListener("touchend", function (event) {
-      let details = this.querySelector("details");
-      let isSummary = event.target.nodeName === "SUMMARY";
+        for (let i = 0; i < fileElements.length; i++) {
+            fileElements[i].textContent = totalFilesConverted.toString();
+            sizeElements[i].textContent = `${totalSizeFormatted} ${sizeLabel}`;
+        }
+    }
 
-      // Toggle hanya jika element summary yang disentuh
-      if (isSummary) {
-        event.preventDefault();
-        details.open = !details.open;
-      }
+    openSSE();
+});
 
-      // Jika dropdown terbuka, tambahkan event listener untuk mouseover
-      if (details.open) {
-        document.addEventListener("mouseover", closeDetails);
-      } else {
-        document.removeEventListener("click", closeDetails);
-      }
-    });
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    initDetailsElement();
-  });
-
-  document.addEventListener("astro:after-swap", function () {
-    updateLinks();
-    initDetailsElement();
-  });
 </script>

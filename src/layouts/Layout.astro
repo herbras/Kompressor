@@ -22,63 +22,13 @@ const { title, lang } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="m-0 p-0">
+  <body class="font-mono m-0 p-0">
     <Navs />
-    <div class="px-8 pt-30 mx-auto max-w-7xl">
+    <div class="px-8 pt-18 mx-auto max-w-7xl">
 
       <slot /></div>
   <Footers />
-    <style is:global>
-      :root {
-        --accent: 136, 58, 234;
-        --accent-light: 224, 204, 250;
-        --accent-dark: 49, 10, 101;
-        --accent-gradient: linear-gradient(
-          45deg,
-          rgb(var(--accent)),
-          rgb(var(--accent-light)) 30%,
-          white 60%
-        );
-      }
-      html {
-        font-family: system-ui, sans-serif;
-        background: #f4f6f9;
-        background-size: 224px;
-      }
-      code {
-        font-family:
-          Menlo,
-          Monaco,
-          Lucida Console,
-          Liberation Mono,
-          DejaVu Sans Mono,
-          Bitstream Vera Sans Mono,
-          Courier New,
-          monospace;
-      }
-	  /* Animasi fade-in */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Animasi fade-out */
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-/* Kelas animasi fade-in */
-.fade-in {
-  animation: fadeIn 0.5s forwards; /* Durasi animasi 0.5 detik */
-}
-
-/* Kelas animasi fade-out */
-.fade-out {
-  animation: fadeOut 0.5s forwards; /* Durasi animasi 0.5 detik */
-}
-
-    </style>
+    
 <!--  <script>
   // Fungsi untuk mengatur perilaku WhatsApp button
   const setupWhatsAppButtonBehavior = () => {
