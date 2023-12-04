@@ -1,64 +1,9 @@
 ---
 import ToggleMenu from "./ToggleMenu.astro";
-import { Image } from "astro:assets";
-import myImage from "@assets/icon.webp";
-
-/** Main menu items */
-const textLinks: { label: string; href: string }[] = [
-  { label: "Blog", href: "/blog/" },
-  { label: "Services", href: "/services/" },
-  { label: "About", href: "/about/" },
-];
-
-const Service_link = [
-  {
-    name: "Presensi QR",
-    href: "/",
-
-    aria: "presensi-qr-code",
-    text: "Presensi QR",
-  },
-  {
-    name: "Compress Gambar",
-    href: "/services/compress-gambar",
-    aria: "compress-gambar-link",
-    text: "Compress Gambar",
-  },
-  {
-    name: "Jadwal KRL Solo-Jogja",
-    href: "/services/krl-solo-jogja",
-    aria: "jadwal-krl-solo-jogja-link",
-    text: "Jadwal KRL Solo-Jogja",
-  },
-  {
-    name: "Quiz Fikih",
-    href: "/services/quiz-fikih",
-    aria: "quiz-fikih-link",
-    text: "Quiz Fikih",
-  },
-  {
-    name: "Smart Dictionary",
-    href: "/services/smart-dictionary",
-    aria: "smart-dictionary-link",
-    text: "Smart Dictionary",
-  },
-  {
-    name: "Pemendek Link",
-    href: "/services/pemendek-link",
-    aria: "pemendek-link-link",
-    text: "Pemendek Link",
-  },
-  {
-    name: "Banyak lagi",
-    href: "#footer",
-    aria: "footer",
-    text: "Banyak lagi 😄",
-  },
-];
 ---
 
 <header
-  class="font-mono z-40 flex-none mx-auto w-[97%] backdrop-blur-10 rounded-md bg-white/30 dark:bg-[#050505]/20 md:backdrop-blur-sm"
+  class="font-mono  fixed bottom-0 z-40 flex-none mx-auto w-[97%] backdrop-blur-10 rounded-md bg-white/30 dark:bg-[#050505]/20 md:backdrop-blur-sm"
   id="header"
   style="transition: transform 0.5s ease 0s; transform: translateY(0px);"
 >

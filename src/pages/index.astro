@@ -12,7 +12,7 @@ import Named from "../components/Named.svelte";
 
 
 
-  <ul
+  <ul id="statistik"
   class="md:hidden flex hidden relative before:content-empty before:absolute before:inset-[-1px] before:bg-green before:dark:bg-blue rounded-md before:rounded-md before:z-[-1] flex-col gap-5 lg:flex-row text-base leading-6 list-none p-4 bg-gray-100 dark:bg-gray-100 border-b border-gray-800 mr-auto"
 >
 <li class="text-gray-700">Converted to Webp: <span class="totalFilesConverted"></span></li>
@@ -23,3 +23,37 @@ import Named from "../components/Named.svelte";
 
 </Layout>
 
+<style is:inline>
+  :root {
+    --primary-color: #4a90e2; /* Adjust primary color */
+    --hover-primary-color: #357abd; /* Darker shade for hover */
+    --danger-color: #e74c3c; /* Red color for danger actions */
+    --text-color: #333; /* Default text color */
+    --font-family: "Arial", sans-serif; /* Modern font */
+    --border-radius: 0.25rem; /* Border radius for roundness */
+  }
+  .start-0 {
+    left: 0;
+  }
+  .start-6 {
+    left: 1.5rem; /* 6 tailwind units */
+  }
+
+  /* Styles for the indeterminate progress bar */
+  @keyframes loading {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* Styles for the determinate progress bar */
+  .progress-bar {
+    transition: width 0.5s ease-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 1px; /* Rounded corners */
+    background-image: linear-gradient(to right, #4d9f0c, #1e5631);
+  }
+</style>

@@ -1,5 +1,5 @@
 <script>
-  import { files, paginatedFiles, removeFile, currentPage } from "./store.js";
+  import { files } from "./store.js";
 
   import { wrap, proxy } from "comlink";
   import { writable } from "svelte/store";
@@ -8,8 +8,9 @@
 
   import { v4 as uuidv4 } from "uuid";
   let fileProgress = writable(0);
-  import { onMount } from "svelte";
+  import { onMount , createEventDispatcher} from "svelte";
 
+const dispatch = createEventDispatcher();
   let loading = writable(false);
   const worker = wrap(new Worker());
   let userMessage = writable("");
@@ -154,6 +155,7 @@
   // Memanggil fungsi saat aplikasi dimuat
   onMount(() => {
     loadFilesFromIDB();
+    dispatch('loaded');
   });
 
   let isWebp = false;
