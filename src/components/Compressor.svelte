@@ -215,7 +215,7 @@ const dispatch = createEventDispatcher();
       <span
         class="absolute inset-y-0 m-1 h-6 w-6 rounded-full transition-all duration-300"
         class:start-0={!isWebp}
-        class:bg-gray-800={!isWebp}
+        class:bg-black={!isWebp}
         class:start-6={isWebp}
         class:bg-white={isWebp}
       ></span>
