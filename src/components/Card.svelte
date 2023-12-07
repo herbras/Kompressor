@@ -21,15 +21,12 @@
                 MB
               </div>
 
-              <!-- Gambar -->
 
               {#if file.loading}
-                <!-- Loader displayed while the file is being processed -->
                 <div
                   class="loader i-tabler-loader-3 w-16 h-16 border-4 border-blue-500 rounded-full border-t-transparent"
                 />
               {:else}
-                <!-- Image preview displayed once the file processing is complete -->
                 <div
                   class="aspect-square h-45 w-45 bg-cover bg-center rounded-lg overflow-hidden"
                 >
@@ -58,7 +55,6 @@
                   </a>
                 </div>
               {/if}
-              <!-- Tombol Hapus -->
               <div
                 class="i-fluent-emoji-cross-mark-button hover:text-lg absolute bottom-0 right-0 text-md bg-white rouded-sm text-white transition duration-300 ease-in-out"
                 on:click={() => removeFile(file.id)}
@@ -70,9 +66,8 @@
     {:else}
       <div class="rounded-md">
         <h2>Hasilnya akan muncul disini</h2>
-        <div class="w-full flex gap-8 snap-x scroll-pl-6 overflow-x-auto py-14">
+        <div class="w-full flex gap-8 snap-x scroll-pl-6 overflow-x-auto ">
           {#each Array(4) as _, index (index)}
-            <!-- Anggap ada maksimal 5 file -->
             <div
               class="animate-pulse shadow-lg snap-start p-24 h-auto w-48 bg-gray-300 rounded-md"
             ></div>

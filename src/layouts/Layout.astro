@@ -27,48 +27,49 @@ const { title, lang } = Astro.props;
       <slot /></div>
   <Footers />
     
-<!--  <script>
-  // Fungsi untuk mengatur perilaku WhatsApp button
-  const setupWhatsAppButtonBehavior = () => {
-    const whatsappButton = document.getElementById("whatsapp-buttons");
-    const toggleButton = document.getElementById("toggle-whatsapp");
-
-    const showWhatsAppButton = () => {
-      whatsappButton.classList.remove("fade-out");
-      whatsappButton.classList.add("fade-in");
-      whatsappButton.style.display = "block";
-      toggleButton.style.display = "none";
-    };
-
-    const hideWhatsAppButton = () => {
-      whatsappButton.classList.remove("fade-in");
-      whatsappButton.classList.add("fade-out");
-      setTimeout(() => {
-        whatsappButton.style.display = "none";
-        toggleButton.style.display = "block";
-      }, 500);
-    };
-
-    toggleButton.addEventListener("click", showWhatsAppButton);
-
-    document.addEventListener("click", (event) => {
-      const isClickInsideElement = whatsappButton.contains(event.target) || toggleButton.contains(event.target);
-      if (!isClickInsideElement) {
-        hideWhatsAppButton();
-      }
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        interface SSEData {
+            totalFilesConverted?: number;
+            totalSizeConverted?: number;
+        }
+    
+        let sseData: SSEData = {};
+        let eventSource: EventSource | null = null;
+    
+        function openSSE() {
+            eventSource = new EventSource("https://webp.qlm.one/sse");
+            eventSource.onmessage = function (event: MessageEvent) {
+                sseData = JSON.parse(event.data);
+                updateDisplay();
+            };
+            eventSource.onerror = function () {
+                console.error("EventSource failed, reconnecting...");
+                eventSource?.close();
+                setTimeout(openSSE, 1000);
+            };
+        }
+    
+        function updateDisplay() {
+            const totalFilesConverted = sseData.totalFilesConverted || 0;
+            const totalSizeConverted = sseData.totalSizeConverted || 0;
+            const sizeUnit = Math.floor(Math.log(totalSizeConverted) / Math.log(1024));
+            const totalSizeFormatted = (totalSizeConverted / Math.pow(1024, sizeUnit)).toFixed(2);
+            const byteUnits = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+            const sizeLabel = byteUnits[sizeUnit];
+    
+            const fileElements = document.getElementsByClassName("totalFilesConverted");
+            const sizeElements = document.getElementsByClassName("totalSizeConverted");
+    
+            for (let i = 0; i < fileElements.length; i++) {
+                fileElements[i].textContent = totalFilesConverted.toString();
+                sizeElements[i].textContent = `${totalSizeFormatted} ${sizeLabel}`;
+            }
+        }
+    
+        openSSE();
     });
-
-    toggleButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
-  };
-
-  // Jalankan pada navigasi awal
-  setupWhatsAppButtonBehavior();
-
-  // Jalankan pada transisi tampilan navigasi
-  document.addEventListener('astro:after-swap', setupWhatsAppButtonBehavior);
-</script> -->
-
+    
+    </script>
   </body>
 </html>
