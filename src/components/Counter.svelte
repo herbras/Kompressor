@@ -5,11 +5,11 @@
   function changePage(newPage) {
   const page = parseInt(newPage);
   if (!isNaN(page) && page >= 1 && page <= $totalPages) {
-    currentPage.set(page); // Correct way to update the store
-    inputPage = ""; // Clear the input field
-    isInputInvalid.set(false); // Use set method to update writable store
+    currentPage.set(page); 
+    inputPage = ""; 
+    isInputInvalid.set(false);
   } else {
-    isInputInvalid.set(true); // Use set method to update writable store
+    isInputInvalid.set(true);
   }
 }
 
@@ -45,7 +45,8 @@ text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc
       Download All
     </button>
   </div>
-  <!-- Existing Pagination Controls -->
+
+
   <div class="flex pt-5 mx-auto w-fit items-center space-x-2">
     <button
       class="px-4 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear
@@ -87,7 +88,8 @@ text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc
 
 </div>
 {:else}
-<!-- Tampilkan kontrol pagination dengan "0 of 0" -->
+
+
 <div class="flex pt-5 md:pt-12 flex-col">
   <div class="flex flex-col md:flex-row gap-5 mx-auto w-fit">
     <button
@@ -108,7 +110,7 @@ text-base border-transparent relative bg-gradient-to-r from-[#6dd47e] to-[#31bdc
       Download All
     </button>
   </div>
-  <!-- Existing Pagination Controls -->
+
   <div class="flex pt-5 mx-auto w-fit items-center space-x-2">
     <button
       class="px-4 py-4 bg-[#914f8f] rounded-md outline-none relative overflow-hidden border duration-300 ease-linear

@@ -19,8 +19,7 @@ const { title, lang } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <script defer data-domain="ultraimage.sarbeh.com" src="https://plausible.io/js/script.js"></script>
-
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e4bf4b0b020944789619c6cabcb9dd37"}'></script><!-- End Cloudflare Web Analytics -->
   </head>
   <body class="font-mono m-0 p-0">
     <Navs />
@@ -74,5 +73,6 @@ const { title, lang } = Astro.props;
     });
     
     </script>
+    
   </body>
 </html>

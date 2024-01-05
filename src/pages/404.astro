@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import i404mage from "../assets/404.png";
+---
+
+<Layout
+  title="404 | Halaman tidak ditemukan"
+  description="Kami sedang bekerja keras untuk menyajikan sesuatu yang spesial untuk Anda! "
+>
+  <main class="pt-12 pb-24 mx-auto w-fit">
+    <div class="max-w-7xl">
+      <article>
+        <div class="mx-auto flex flex-col items-center justify-center">
+          <div class="m-4 rounded-md">
+            <Image
+              src={i404mage}
+              width={i404mage.width / 3}
+              densities={[0.7, 1]}
+              height={i404mage.height / 3}
+              class="rounded-md"
+              alt="pycon-error.svg"
+            />
+          </div>
+          <div
+            class="flex flex-col items-center justify-center gap-8 text-center"
+          >
+            <h1 class="text-4xl p-0 h-0 text-primary">
+              Sedang Dalam Pengembangan
+            </h1>
+            <p
+              class="text-justify text-xs text-gray-900 md:w-2/3 md:text-center"
+            >
+              pesan kesalahan: 404
+            </p>
+            <p class="text-justify text-sm w-3/4 md:w-2/3 text-center">
+              Kami sedang bekerja keras untuk menyajikan sesuatu yang spesial
+              untuk Anda! Mohon maaf atas ketidaknyamanannya.
+            </p>
+            <a
+              class="inline-flex items-center font-bold text-white dark:text-[#914f8f] decoration-none bg-[#914f8f] dark:bg-white justify-center text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 rounded-full bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-36"
+              href="/"
+            >
+              Kembali ke Beranda
+            </a>
+            <p class="text-justify text-sm w-3/4 md:w-2/3 text-center">
+              Jika Anda memiliki pertanyaan, silakan hubungi kami di <a
+                href="https://twitter.com/sarbeh_"
+                class="text-primary text-yellow decoration-none hover:underline"
+                >@Sarbeh_</a
+              >.
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+</Layout>

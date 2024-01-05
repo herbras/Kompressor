@@ -1,12 +1,11 @@
 ---
 import Counter from "./Counter.svelte";
-import Placeholder from "./Placeholde.svelte";
 import Compressor from "./Compressor.svelte";
 import Card from "./Card.svelte";
 ---
-
 <Compressor client:only="svelte" />
-  
+
+
 <div class="flex flex-col md:flex-row gap-5">
   <Counter client:visible />
   <Card client:visible />
@@ -15,11 +14,10 @@ import Card from "./Card.svelte";
 
 <style>
   #feature-five {
-    overflow-y: auto; /* Mengaktifkan scrolling bila diperlukan */
-    scrollbar-width: none; /* Untuk browser yang mendukung, seperti Firefox */
-  }
+    overflow-y: auto; 
+    scrollbar-width: none;
 
   #feature-five::-webkit-scrollbar {
-    display: none; /* Untuk browser WebKit seperti Chrome dan Safari */
+    display: none; 
   }
 </style>
