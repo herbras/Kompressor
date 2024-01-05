@@ -7,6 +7,10 @@ import Footers from "@components/Footers.astro";
 
 import Navs from "../components/Navs.astro";
 const { title, lang } = Astro.props;
+import { getImage } from "astro:assets";
+import Logo from "../assets/logo.png"
+const KlienOp = await getImage({ src: Logo, format: "webp" });
+
 ---
 
 <!doctype html>
@@ -16,7 +20,7 @@ const { title, lang } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/webp" href={KlienOp.src} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e4bf4b0b020944789619c6cabcb9dd37"}'></script><!-- End Cloudflare Web Analytics -->
